@@ -1,6 +1,9 @@
 import os
+import torch
+import numpy as np
 from PIL import Image
 from torchvision.datasets import VisionDataset
+from torch.utils.data import Dataset
 
 class xbdDataset(VisionDataset):
     def __init__(self, root = None, transforms = None, transform = None, target_transform = None):
@@ -30,3 +33,28 @@ class xbdDataset(VisionDataset):
                 mask = self.target_transform(mask)
 
         return image, mask
+
+class inferenceDataset(Dataset):
+    def __init__(self, input_dir = None, transform = None):
+        self.input_dir = input_dir
+        self.image_filenames = sorted(os.listdir(self.input_dir))
+        self.transform = transform
+
+    def __len__(self):
+        return len(self.image_filenames)
+    
+    def __getitem__(self, index):
+        file_name = self.image_filenames[index]
+        image_path = os.path.join(self.input_dir, file_name)
+
+        image = Image.open(image_path).convert('RGB')
+
+        if self.transform:
+            image = self.transform(image)
+        else:
+            # 기본적으로 numpy array로 변환 후 tensor로 변환 (정규화: [0,1])
+            image = np.array(image)
+            image = torch.from_numpy(image).permute(2, 0, 1).float() / 255.0
+        
+        return image, file_name
+        

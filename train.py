@@ -173,7 +173,7 @@ st_epoch = 0
 
 if mode == 'train':
     if train_continue == 'on':
-        net, optim, st_epoch = load(ckpt_dir=ckpt_dir, net=net, optim=optim)
+        net, optim, st_epoch = load(ckpt_dir=ckpt_dir, net=net, optim=optim, device=device)
     
     for epoch in range(st_epoch+1, num_epoch + 1):
         loss, acc = train_loop(dataloader=train_loader, model=net, fn_loss=fn_loss, optim=optim, epoch=epoch, writer=writer_train)
@@ -187,7 +187,7 @@ if mode == 'train':
     writer_train.close()
     writer_val.close()
 else:
-    net, optim, _ = load(ckpt_dir=ckpt_dir, net=net, optim=optim)
+    net, optim, _ = load(ckpt_dir=ckpt_dir, net=net, optim=optim, device=device)
 
     num_batches = len(test_loader)
     test_loss, correct = 0.0, 0
