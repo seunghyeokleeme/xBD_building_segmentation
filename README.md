@@ -87,18 +87,18 @@ datasets/
   python3 ./copy_pre_disatser_images.py
   ```
 
-1. 1024 x 1024 -> 4개의 512 x 512 crop
+2. 1024 x 1024 -> 4개의 512 x 512 crop
   ```bash
   python3 ./crop.py --datasets_dir="./datasets" \
 --save_dir="./datasets_512"
   ```
 
-1. tensorboard 실행
+3. tensorboard 실행
   ```bash
   tensorboard --logdir='./log'
   ```
 
-1. TRAIN
+4. TRAIN
 ```bash
 python3 ./train.py \
 --lr 1e-3 --batch_size 12 --num_epoch 50 \
@@ -110,7 +110,7 @@ python3 ./train.py \
 --train_continue "off"
 ```
 
-1. TEST
+5. TEST
 ```bash
 python3 ./train.py \
 --lr 1e-3 --batch_size 12 --num_epoch 50 \
@@ -122,14 +122,14 @@ python3 ./train.py \
 --train_continue "off"
 ```
 
-1. EVAL
+6. EVAL
 ```bash
 python3 ./eval.py \
 --result_dir "./results_v1" \
 --out_fp "./localization_metrics.json"
 ```
 
-1. INFERENCE
+7. INFERENCE
 ```bash
 python3 ./inference.py \
 --lr 1e-3 --batch_size 4 \
