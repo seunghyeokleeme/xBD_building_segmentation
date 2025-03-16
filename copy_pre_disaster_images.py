@@ -1,23 +1,11 @@
-import argparse
 import os
 import shutil
 
-parser = argparse.ArgumentParser(description='make the xBD building datasets',
-                                 formatter_class=argparse.ArgumentDefaultsHelpFormatter)
-
-parser.add_argument('--datasets_dir', default='./xbd', type=str, dest='datasets_dir')
-parser.add_argument('--dest_dir', default='.', type=str, dest='dest_dir')
-parser.add_argument('--include_tier3', action='store_true', dest='include_tier3')
-
-args = parser.parse_args()
-
 # 원본 datasets 폴더 경로 (예시)
-datasets_dir = args.datasets_dir  # 실제 경로로 수정
-
+datasets_dir = './xbd'  # 실제 경로로 수정
 # 대상 폴더 경로 (복사될 폴더의 부모 디렉터리)
-dest_dir = args.dest_dir  # 현재 디렉터리(또는 원하는 부모 경로)로 지정
-
-include_tier3 = args.include_tier3
+dest_dir = '.'  # 현재 디렉터리(또는 원하는 부모 경로)로 지정
+include_tier3 = False
 
 def create_dataset_structure(base_path='.', fname_folder='datasets'):
     """
